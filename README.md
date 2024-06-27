@@ -14,4 +14,5 @@ Would I recommend this for anything serious? Probably not. But it's fun, insanel
 2. Download PocketBase from here: https://pocketbase.io/docs/ and put it in the POCKETBASE_DIR folder
 3. Start pocketbase with `./POCKETBASE_DIR/pocketbase serve`
 4. Install dependencies with `bun i`
-5. Run the app with `bun run dev`
+5. Fill in the .env file with your PocketBase credentials (just need the url as PUBLIC_PB_URL)
+6. Run the app with `bun run dev`
