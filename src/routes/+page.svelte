@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<img
-				src="/burgology.png"
+				src="https://res.cloudinary.com/insiderviz/image/upload/f_auto,q_auto/yjmgoi2kce2q0ppyatuo"
 				width="550"
 				height="550"
 				alt="Hero"
