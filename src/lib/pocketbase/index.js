@@ -1,4 +1,4 @@
-import { PB_URL } from '$env/static/private';
+import { PUBLIC_PB_URL } from '$env/static/public';
 import PocketBase from 'pocketbase';
 
-export const pb = new PocketBase(PB_URL);
+export const pb = new PocketBase(PUBLIC_PB_URL);
