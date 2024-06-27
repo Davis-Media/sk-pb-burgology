@@ -7,8 +7,9 @@
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
+	import { page } from '$app/stores';
 
-	const { data } = $props();
+	const id = $page.url.searchParams.get('id');
 
 	let raidData = $state(null);
 
@@ -72,7 +73,7 @@
 			goto('/');
 		}
 
-		raidData = await pb.collection('raids').getOne(data.id, {
+		raidData = await pb.collection('raids').getOne(id, {
 			expand: 'runs,players'
 		});
 
@@ -88,6 +89,8 @@
 
 	let playerId = $state('');
 	let addIsOpen = $state(false);
+
+	let isLoading = $state(false);
 </script>
 
 {#if !raidData}
@@ -136,11 +139,11 @@
 									});
 								}
 								curPlayerIds.push(playerId);
-								await pb.collection('raids').update(data.id, {
+								await pb.collection('raids').update(id, {
 									players: curPlayerIds
 								});
 
-								raidData = await pb.collection('raids').getOne(data.id, {
+								raidData = await pb.collection('raids').getOne(id, {
 									expand: 'runs,players'
 								});
 
@@ -198,7 +201,9 @@
 							{#each raidData.expand.players as player}
 								<Table.Cell>
 									<Button
+										disabled={isLoading}
 										onclick={async () => {
+											isLoading = true;
 											const nRun = await pb.collection('runs').create({
 												encounter,
 												wipe,
@@ -212,15 +217,16 @@
 												});
 											}
 											curRunIds.push(nRun.id);
-											await pb.collection('raids').update(data.id, {
+											await pb.collection('raids').update(id, {
 												runs: curRunIds
 											});
 
-											raidData = await pb.collection('raids').getOne(data.id, {
+											raidData = await pb.collection('raids').getOne(id, {
 												expand: 'runs,players'
 											});
 
 											wipe += 1;
+											isLoading = false;
 										}}>{player.nickname}</Button
 									>
 								</Table.Cell>

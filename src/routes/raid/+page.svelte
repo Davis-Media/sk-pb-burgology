@@ -100,7 +100,7 @@
 					<Table.Cell>{raid.name}</Table.Cell>
 					<Table.Cell>{new Date(raid.created).toLocaleDateString()}</Table.Cell>
 					<Table.Cell class="text-right"
-						><Button href={`raid/${raid.id}`} variant="outline">View</Button></Table.Cell
+						><Button href={`raid/one?id=${raid.id}`} variant="outline">View</Button></Table.Cell
 					>
 				</Table.Row>
 			{/each}
